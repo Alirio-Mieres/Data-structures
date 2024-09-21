@@ -8,12 +8,23 @@ public static class Arrays
     /// <returns>array of doubles that are the multiples of the supplied number</returns>
     public static double[] MultiplesOf(double number, int length)
     {
-        // TODO Problem 1 Start
-        // Remember: Using comments in your program, write down your process for solving this problem
-        // step by step before you write the code. The plan should be clear enough that it could
-        // be implemented by another person.
+    /*
+    Plan:
+       1. Initialize a double array called `result` with a size equal to the `length` parameter.
+       2. Use a for loop to iterate from `0` to `length - 1`, using `i` as the index variable.
+       3. Inside the loop, create a double variable `num` and set it to `number * (i + 1)` to calculate the multiple.
+       4. Assign the value of `num` to `result[i]`.
+       5. After the loop, return the `result` array containing the calculated multiples.
+    */
+        
+        var result = new double[length];
 
-        return []; // replace this return statement with your own
+        for (var i = 0; i < length; i++) {
+            double num = number * (i + 1);
+            result[i] = num;
+        }
+
+        return result;
     }
 
     /// <summary>
@@ -25,9 +36,20 @@ public static class Arrays
     /// </summary>
     public static void RotateListRight(List<int> data, int amount)
     {
-        // TODO Problem 2 Start
-        // Remember: Using comments in your program, write down your process for solving this problem
-        // step by step before you write the code. The plan should be clear enough that it could
-        // be implemented by another person.
+    /*
+    Plan:
+       1. Get the count of elements in `data` and store it in the variable `length`.
+       2. Check if `length` is `0` or if `amount` is divisible by `length`. If true, return early.
+       3. Create a list `partToMove` by using `GetRange` to retrieve the last `amount` elements from `data`.
+       4. Remove the same `amount` of elements from the end of `data` using `RemoveRange`.
+       5. Insert `partToMove` at the beginning of `data` using `InsertRange`.
+    */
+        int length = data.Count;
+        if (length == 0 || amount % length == 0) 
+            return;
+        List<int> partToMove = data.GetRange(length - amount, amount);
+        data.RemoveRange(length - amount, amount);
+        data.InsertRange(0, partToMove);
+        
     }
 }
