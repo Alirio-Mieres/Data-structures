@@ -6,24 +6,53 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 public class PriorityQueueTests
 {
     [TestMethod]
-    // Scenario: 
-    // Expected Result: 
-    // Defect(s) Found: 
-    public void TestPriorityQueue_1()
+    // Scenario: Create a priority queue and enqueue three items with different priorities.
+    // Expected Result: The items should be added in the order they were enqueued: 
+    // FirstItem (Pri:1), SecondItem (Pri:2), ThirdItem (Pri:3).
+    // Defect(s) Found: None
+    public void Enqueue_AddsItemToBackOfQueue()
     {
-        var priorityQueue = new PriorityQueue();
-        Assert.Fail("Implement the test case and then remove this.");
-    }
+        var queue = new PriorityQueue();
 
+        queue.Enqueue("FirstItem", 1);
+        queue.Enqueue("SecondItem", 2);
+        queue.Enqueue("ThirdItem", 3);
+
+        var expectedString = "[FirstItem (Pri:1), SecondItem (Pri:2), ThirdItem (Pri:3)]";
+        Assert.AreEqual(expectedString, queue.ToString(), "Items should be added to the back of the queue in the order they were enqueued.");
+    }
+    
     [TestMethod]
-    // Scenario: 
-    // Expected Result: 
-    // Defect(s) Found: 
+    // Scenario: Enqueue items with varying priorities into the priority queue.
+    // Expected Result: When dequeuing, the highest priority item should be returned first, 
+    // which is "High Priority Item".
+    // Defect(s) Found: The Dequeue method does not correctly respect item priorities.
     public void TestPriorityQueue_2()
     {
         var priorityQueue = new PriorityQueue();
-        Assert.Fail("Implement the test case and then remove this.");
+        priorityQueue.Enqueue("Low Priority Item", 1);    
+        priorityQueue.Enqueue("Medium Priority Item", 5); 
+        priorityQueue.Enqueue("High Priority Item", 10);  
+    
+        var highestPriorityItem = priorityQueue.Dequeue();
+    
+        Assert.AreEqual("High Priority Item", highestPriorityItem, "The highest priority item should be returned first.");
     }
 
-    // Add more test cases as needed below.
+    [TestMethod]
+    // Scenario: Enqueue three items with the same priority and dequeue them in order.
+    // Expected Result: The items should be dequeued in the order they were enqueued:
+    // "First Item", "Second Item", "Third Item".
+    // Defect(s) Found: The Dequeue method fails to remove items from the queue, causing repeated returns of the same item.
+    public void TestPriorityQueue_3()
+    {
+        var queue = new PriorityQueue();
+        queue.Enqueue("FirstItem", 5);
+        queue.Enqueue("SecondItem", 5);
+        queue.Enqueue("ThirdItem", 5);
+
+        Assert.AreEqual("FirstItem", queue.Dequeue(), "The first item with equal priority should be dequeued first.");
+        Assert.AreEqual("SecondItem", queue.Dequeue(), "The second item with equal priority should be dequeued second.");
+        Assert.AreEqual("ThirdItem", queue.Dequeue(), "The third item with equal priority should be dequeued third.");
+    }
 }
