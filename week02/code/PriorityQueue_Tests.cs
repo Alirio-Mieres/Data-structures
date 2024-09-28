@@ -27,7 +27,7 @@ public class PriorityQueueTests
     // Expected Result: When dequeuing, the highest priority item should be returned first, 
     // which is "High Priority Item".
     // Defect(s) Found: The Dequeue method does not correctly respect item priorities.
-    public void TestPriorityQueue_2()
+    public void Dequeue_RemovesItemsInPriorityOrder()
     {
         var priorityQueue = new PriorityQueue();
         priorityQueue.Enqueue("Low Priority Item", 1);    
@@ -44,7 +44,7 @@ public class PriorityQueueTests
     // Expected Result: The items should be dequeued in the order they were enqueued:
     // "First Item", "Second Item", "Third Item".
     // Defect(s) Found: The Dequeue method fails to remove items from the queue, causing repeated returns of the same item.
-    public void TestPriorityQueue_3()
+    public void Dequeue_RemovesEqualPriorityItemsInOrder()
     {
         var queue = new PriorityQueue();
         queue.Enqueue("FirstItem", 5);
