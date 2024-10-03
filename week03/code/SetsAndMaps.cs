@@ -21,8 +21,23 @@ public static class SetsAndMaps
     /// <param name="words">An array of 2-character words (lowercase, no duplicates)</param>
     public static string[] FindPairs(string[] words)
     {
-        // TODO Problem 1 - ADD YOUR CODE HERE
-        return [];
+        HashSet<string> uniques = [];
+        List<string> result = [];
+
+
+        foreach (string chars in words) 
+        {
+            if (chars[1] == chars[0]) continue;
+
+            string pair = $"{chars[1]}{chars[0]}";
+            uniques.Add(chars);
+            
+            if (uniques.Contains(pair)) {
+                result.Add($"{chars} & {pair}");
+            }
+        }
+
+        return [.. result];
     }
 
     /// <summary>
@@ -66,8 +81,19 @@ public static class SetsAndMaps
     /// </summary>
     public static bool IsAnagram(string word1, string word2)
     {
-        // TODO Problem 3 - ADD YOUR CODE HERE
-        return false;
+        word1 = word1.Replace(" ", "").ToLower();
+        word2 = word2.Replace(" ", "").ToLower();
+
+        if (word1.Length != word2.Length) return false;
+
+
+        for (int i = 0; i < word1.Length; i++) {
+            if (word1 != word2) return false;
+        }
+
+
+
+        return true;
     }
 
     /// <summary>
