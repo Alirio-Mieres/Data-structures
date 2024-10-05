@@ -25,15 +25,16 @@ public static class SetsAndMaps
         List<string> result = [];
 
 
-        foreach (string chars in words) 
+        foreach (string word in words)
         {
-            if (chars[1] == chars[0]) continue;
+            if (word[1] == word[0]) continue;
 
-            string pair = $"{chars[1]}{chars[0]}";
-            uniques.Add(chars);
-            
-            if (uniques.Contains(pair)) {
-                result.Add($"{chars} & {pair}");
+            string pair = $"{word[1]}{word[0]}";
+            uniques.Add(word);
+
+            if (uniques.Contains(pair))
+            {
+                result.Add($"{word} & {pair}");
             }
         }
 
@@ -57,7 +58,13 @@ public static class SetsAndMaps
         foreach (var line in File.ReadLines(filename))
         {
             var fields = line.Split(",");
-            // TODO Problem 2 - ADD YOUR CODE HERE
+            var degree = fields[3];
+
+            if (degrees.ContainsKey(degree))
+                degrees[degree] += 1;
+            else
+                degrees[degree] = 1;
+
         }
 
         return degrees;
@@ -83,16 +90,38 @@ public static class SetsAndMaps
     {
         word1 = word1.Replace(" ", "").ToLower();
         word2 = word2.Replace(" ", "").ToLower();
-
         if (word1.Length != word2.Length) return false;
 
+        var register = new Dictionary<char, int>();
 
-        for (int i = 0; i < word1.Length; i++) {
-            if (word1 != word2) return false;
+        for (int i = 0; i < word1.Length; i++)
+        {
+            var char1 = word1[i];
+            var char2 = word2[i];
+
+            if (register.ContainsKey(char1))
+            {
+                register[char1] += 1;
+            }
+            else
+            {
+                register[char1] = 1;
+            }
+
+            if (register.ContainsKey(char2))
+            {
+                register[char2] -= 1;
+            }
+            else
+            {
+                register[char2] = -1;
+            }
         }
 
-
-
+        foreach (int counts in register.Values)
+        {
+            if (counts != 0) return false;
+        }
         return true;
     }
 
